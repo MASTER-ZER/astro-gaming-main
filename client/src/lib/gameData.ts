@@ -1,0 +1,253 @@
+export interface GamePackage {
+  id: string;
+  amount: string;
+  price: number;
+  category?: string;
+}
+
+export interface GameData {
+  id: string;
+  name: string;
+  nameAr: string;
+  slug: string;
+  icon: string;
+  image?: string;
+  color: string;
+  loginType?: "id" | "account" | "both";
+  packages: GamePackage[];
+}
+
+export const gamesData: GameData[] = [
+  {
+    id: "pes-mobile",
+    name: "PES Mobile",
+    nameAr: "PES (eFootball)",
+    slug: "pes-mobile",
+    icon: "⚽",
+    color: "from-blue-500 to-indigo-600",
+    loginType: "account",
+    packages: [
+      { id: "pes1", amount: "130 كوين", price: 110 },
+      { id: "pes2", amount: "300 كوين", price: 200 },
+      { id: "pes3", amount: "550 كوين", price: 280 },
+      { id: "pes4", amount: "750 كوين", price: 390 },
+      { id: "pes5", amount: "1040 كوين", price: 500 },
+      { id: "pes6", amount: "2130 كوين", price: 980 },
+      { id: "pes7", amount: "3250 كوين", price: 1400 },
+      { id: "pes8", amount: "5700 كوين", price: 2350 },
+      { id: "pes9", amount: "12800 كوين", price: 4600 },
+    ],
+  },
+  {
+    id: "roblox",
+    name: "Roblox",
+    nameAr: "روبلوكس",
+    slug: "roblox",
+    icon: "🎲",
+    color: "from-red-600 to-rose-700",
+    loginType: "account",
+    packages: [
+      { id: "rb1", amount: "80 Robux", price: 55 },
+      { id: "rb2", amount: "400 Robux", price: 240 },
+      { id: "rb3", amount: "800 Robux", price: 470 },
+      { id: "rb4", amount: "1700 Robux", price: 940 },
+    ],
+  },
+  {
+    id: "pubg-kr",
+    name: "PUBG Korean",
+    nameAr: "ببجي الكورية",
+    slug: "pubg-kr",
+    icon: "🎮",
+    color: "from-yellow-500 to-amber-600",
+    loginType: "id",
+    packages: [
+      { id: "pk1", amount: "60 شدة", price: 70, category: "شدات ببجي الكورية" },
+      { id: "pk2", amount: "190 شدة", price: 220, category: "شدات ببجي الكورية" },
+      { id: "pk3", amount: "310 شدة", price: 360, category: "شدات ببجي الكورية" },
+      { id: "pk4", amount: "380 شدة", price: 420, category: "شدات ببجي الكورية" },
+      { id: "pk5", amount: "660 شدة", price: 600, category: "شدات ببجي الكورية" },
+      { id: "pk6", amount: "1800 شدة", price: 1450, category: "شدات ببجي الكورية" },
+    ],
+  },
+  {
+    id: "pubg-id",
+    name: "PUBG ID",
+    nameAr: "ببجي ID",
+    slug: "pubg-id",
+    icon: "🎮",
+    color: "from-orange-500 to-amber-600",
+    loginType: "id",
+    packages: [
+      { id: "pi1", amount: "30 شدة", price: 35, category: "شحن عن طريق الـ ID" },
+      { id: "pi2", amount: "60 شدة", price: 55, category: "شدات عن طريق الـ ID" },
+      { id: "pi3", amount: "325 شدة", price: 240, category: "شدات عن طريق الـ ID" },
+      { id: "pi4", amount: "385 شدة", price: 285, category: "شدات عن طريق الـ ID" },
+      { id: "pi5", amount: "660 شدة", price: 455, category: "شدات عن طريق الـ ID" },
+      { id: "pi6", amount: "720 شدة", price: 500, category: "شدات عن طريق الـ ID" },
+      { id: "pi7", amount: "1800 شدة", price: 1190, category: "شدات عن طريق الـ ID" },
+      { id: "pi8", amount: "3850 شدة", price: 2250, category: "شدات عن طريق الـ ID" },
+      { id: "pi9", amount: "5015 شدة", price: 3190, category: "شدات عن طريق الـ ID" },
+      { id: "pi10", amount: "برايم عادي", price: 65, category: "برايم" },
+      { id: "pi11", amount: "برايم بلس", price: 490, category: "برايم" },
+      { id: "pi12", amount: "ازدهار 1$", price: 60, category: "عروض الازدهار" },
+      { id: "pi13", amount: "ازدهار 3$", price: 145, category: "عروض الازدهار" },
+      { id: "pi14", amount: "ازدهار 5$", price: 250, category: "عروض الازدهار" },
+    ],
+  },
+  {
+    id: "pubg-account",
+    name: "PUBG Account",
+    nameAr: "ببجي أكونت",
+    slug: "pubg-account",
+    icon: "🎮",
+    color: "from-orange-600 to-red-700",
+    loginType: "account",
+    packages: [
+      { id: "pa1", amount: "60 شدة", price: 55, category: "شحن عن طريق الأكونت" },
+      { id: "pa2", amount: "120 شدة", price: 110, category: "شحن عن طريق الأكونت" },
+      { id: "pa3", amount: "325 شدة", price: 215, category: "شحن عن طريق الأكونت" },
+      { id: "pa4", amount: "650 شدة", price: 420, category: "شحن عن طريق الأكونت" },
+      { id: "pa5", amount: "1800 شدة", price: 1070, category: "شحن عن طريق الأكونت" },
+      { id: "pa6", amount: "3850 شدة", price: 2050, category: "شحن عن طريق الأكونت" },
+      { id: "pa7", amount: "8100 شدة", price: 4000, category: "شحن عن طريق الأكونت" },
+    ],
+  },
+  {
+    id: "tiktok",
+    name: "TikTok Coins",
+    nameAr: "عملات تيك توك",
+    slug: "tiktok",
+    icon: "🎵",
+    color: "from-pink-500 to-rose-600",
+    loginType: "account",
+    packages: [
+      { id: "tt1", amount: "70 Coins", price: 60 },
+      { id: "tt2", amount: "140 Coins", price: 110 },
+      { id: "tt3", amount: "350 Coins", price: 210 },
+      { id: "tt4", amount: "700 Coins", price: 410 },
+      { id: "tt5", amount: "1000 Coins", price: 550 },
+      { id: "tt6", amount: "2000 Coins", price: 1100 },
+      { id: "tt7", amount: "5000 Coins", price: 2650 },
+    ],
+  },
+  {
+    id: "fifa-mobile",
+    name: "FIFA Mobile",
+    nameAr: "FC Points (الأخضر)",
+    slug: "fifa-mobile",
+    icon: "⚽",
+    color: "from-green-500 to-emerald-600",
+    loginType: "account",
+    packages: [
+      { id: "fm1", amount: "160 FC Points", price: 65 },
+      { id: "fm2", amount: "750 FC Points", price: 230 },
+      { id: "fm3", amount: "1500 FC Points", price: 450 },
+      { id: "fm4", amount: "3000 FC Points", price: 870 },
+      { id: "fm5", amount: "7500 FC Points", price: 2100 },
+      { id: "fm6", amount: "15000 FC Points", price: 4200 },
+    ],
+  },
+  {
+    id: "freefire",
+    name: "Free Fire",
+    nameAr: "فري فاير اكونت",
+    slug: "freefire",
+    icon: "🔥",
+    color: "from-red-500 to-orange-600",
+    loginType: "account",
+    packages: [
+      { id: "ff1", amount: "110 جوهرة", price: 50, category: "شحن عن طريق الاكونت" },
+      { id: "ff2", amount: "231 جوهرة", price: 100, category: "شحن عن طريق الاكونت" },
+      { id: "ff3", amount: "310 جوهرة", price: 145, category: "شحن عن طريق الاكونت" },
+      { id: "ff4", amount: "520 جوهرة", price: 235, category: "شحن عن طريق الاكونت" },
+      { id: "ff5", amount: "830 جوهرة", price: 380, category: "شحن عن طريق الاكونت" },
+      { id: "ff6", amount: "1060 جوهرة", price: 460, category: "شحن عن طريق الاكونت" },
+      { id: "ff7", amount: "1170 جوهرة", price: 510, category: "شحن عن طريق الاكونت" },
+      { id: "ff8", amount: "2120 جوهرة", price: 920, category: "شحن عن طريق الاكونت" },
+      { id: "ff9", amount: "2420 جوهرة", price: 1070, category: "شحن عن طريق الاكونت" },
+      { id: "ff10", amount: "3180 جوهرة", price: 1380, category: "شحن عن طريق الاكونت" },
+      { id: "ff11", amount: "4240 جوهرة", price: 1840, category: "شحن عن طريق الاكونت" },
+      { id: "ff12", amount: "5500 جوهرة", price: 2400, category: "شحن عن طريق الاكونت" },
+      { id: "ff13", amount: "10600 جوهرة", price: 4600, category: "شحن عن طريق الاكونت" },
+      { id: "ff14", amount: "عضوية اسبوعية مخففة", price: 40, category: "شحن عن طريق الاكونت" },
+      { id: "ff15", amount: "عضوية أسبوعي", price: 80, category: "شحن عن طريق الاكونت" },
+      { id: "ff16", amount: "عضوية شهرية", price: 400, category: "شحن عن طريق الاكونت" },
+      { id: "ff17", amount: "بويا باس", price: 70, category: "شحن عن طريق الاكونت" },
+      { id: "ff18", amount: "دروب 16.99ج", price: 40, category: "شحن عن طريق الاكونت" },
+      { id: "ff19", amount: "دروب 34.99ج", price: 80, category: "شحن عن طريق الاكونت" },
+      { id: "ff20", amount: "دروب 49.99ج", price: 50, category: "شحن عن طريق الاكونت" },
+      { id: "ff21", amount: "دروب 99.99ج", price: 100, category: "شحن عن طريق الاكونت" },
+    ],
+  },
+  {
+    id: "freefire-id",
+    name: "Free Fire ID",
+    nameAr: "فري فاير ID",
+    slug: "freefire-id",
+    icon: "🔥",
+    color: "from-orange-600 to-red-700",
+    loginType: "id",
+    packages: [
+      { id: "fid1", amount: "110 جوهرة", price: 55, category: "شحن عن طريق الـ ID" },
+      { id: "fid2", amount: "231 جوهرة", price: 115, category: "شحن عن طريق الـ ID" },
+      { id: "fid3", amount: "341 جوهرة", price: 165, category: "شحن عن طريق الـ ID" },
+      { id: "fid4", amount: "583 جوهرة", price: 265, category: "شحن عن طريق الـ ID" },
+      { id: "fid5", amount: "814 جوهرة", price: 370, category: "شحن عن طريق الـ ID" },
+      { id: "fid6", amount: "1045 جوهرة", price: 465, category: "شحن عن طريق الـ ID" },
+      { id: "fid7", amount: "1188 جوهرة", price: 515, category: "شحن عن طريق الـ ID" },
+      { id: "fid8", amount: "2000 جوهرة", price: 885, category: "شحن عن طريق الـ ID" },
+      { id: "fid9", amount: "2233 جوهرة", price: 980, category: "شحن عن طريق الـ ID" },
+      { id: "fid10", amount: "2420 جوهرة", price: 950, category: "شحن عن طريق الـ ID" },
+      { id: "fid11", amount: "3465 جوهرة", price: 1415, category: "شحن عن طريق الـ ID" },
+      { id: "fid12", amount: "3588 جوهرة", price: 1460, category: "شحن عن طريق الـ ID" },
+      { id: "fid13", amount: "4653 جوهرة", price: 1920, category: "شحن عن طريق الـ ID" },
+      { id: "fid14", amount: "4800 جوهرة", price: 1900, category: "شحن عن طريق الـ ID" },
+      { id: "fid15", amount: "5000 جوهرة", price: 2000, category: "شحن عن طريق الـ ID" },
+      { id: "fid16", amount: "10000 جوهرة", price: 4385, category: "شحن عن طريق الـ ID" },
+      { id: "fid17", amount: "البويا باس", price: 70, category: "شحن عن طريق الـ ID" },
+      { id: "fid18", amount: "عضوية اسبوعية ID", price: 120, category: "شحن عن طريق ID" },
+      { id: "fid19", amount: "عضوية شهرية ID", price: 530, category: "شحن عن طريق الـ ID" },
+      { id: "fid20", amount: "عرض المستوي كامل ID", price: 200, category: "شحن عن طريق الـ ID" },
+      { id: "fid21", amount: "عرض المستوي لفل6", price: 30, category: "شحن عن طريق الـ ID" },
+      { id: "fid22", amount: "عرض المستوي لفل 10", price: 40, category: "شحن عن طريق الـ ID" },
+      { id: "fid23", amount: "عرض المستوي لفل 15", price: 40, category: "شحن عن طريق الـ ID" },
+      { id: "fid24", amount: "عرض المستوي لفل 20", price: 40, category: "شحن عن طريق الـ ID" },
+      { id: "fid25", amount: "عرض المستوي لفل 25", price: 40, category: "شحن عن طريق الـ ID" },
+      { id: "fid26", amount: "عرض المستوي لفل 30", price: 60, category: "شحن عن طريق الـ ID" },
+    ],
+  },
+];
+
+export const paymentMethodsData = [
+  {
+    id: "cash1",
+    name: "واتساب",
+    nameAr: "واتساب",
+    accountNumber: "01553389396",
+    icon: "💵",
+  },
+  {
+    id: "cash2",
+    name: "رقم ثاني",
+    nameAr: "رقم ثاني",
+    accountNumber: "01212005394",
+    icon: "💵",
+  },
+  {
+    id: "cash3",
+    name: "رقم ثالث",
+    nameAr: "رقم ثالث",
+    accountNumber: "01117604462",
+    icon: "💵",
+  },
+];
+
+export const guaranteeLinks = {
+  facebook: "https://www.facebook.com/share/p/1HvguAgDoj/",
+  whatsappGroups: [
+    "https://chat.whatsapp.com/JEYxF6O56q4CcOFF1t6b3m",
+    "https://chat.whatsapp.com/KxMgUHAvTS7F1tGkazCcDg",
+    "https://chat.whatsapp.com/IofSmrPcLYe8J6XtHkVh1n",
+  ],
+};

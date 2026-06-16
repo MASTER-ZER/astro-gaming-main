@@ -1,0 +1,749 @@
+[
+  {
+    "game": {
+      "name": "PES (eFootball)",
+      "slug": "pes-mobile",
+      "icon": "⚽",
+      "color": "from-blue-500 to-indigo-600",
+      "loginType": "account"
+    },
+    "packages": [
+      {
+        "name": "130 كوين",
+        "amount": "130 كوين",
+        "price": 60,
+        "category": ""
+      },
+      {
+        "name": "300 كوين",
+        "amount": "",
+        "price": 155,
+        "category": ""
+      },
+      {
+        "name": "550 كوين",
+        "amount": "",
+        "price": 240,
+        "category": ""
+      },
+      {
+        "name": "750 كوين",
+        "amount": "",
+        "price": 350,
+        "category": ""
+      },
+      {
+        "name": "1040 كوين",
+        "amount": "1040 كوين",
+        "price": 450,
+        "category": ""
+      },
+      {
+        "name": "2130 كوين",
+        "amount": "2130 كوين",
+        "price": 940,
+        "category": ""
+      },
+      {
+        "name": "3250 كوين",
+        "amount": "3250 كوين",
+        "price": 1350,
+        "category": ""
+      },
+      {
+        "name": "5700 كوين",
+        "amount": "5700 كوين",
+        "price": 2150,
+        "category": ""
+      },
+      {
+        "name": "12800 كوين",
+        "amount": "12800 كوين",
+        "price": 4600,
+        "category": null
+      }
+    ]
+  },
+  {
+    "game": {
+      "name": "روبلوكس",
+      "slug": "roblox",
+      "icon": "🎲",
+      "color": "from-red-600 to-rose-700",
+      "loginType": "account"
+    },
+    "packages": [
+      {
+        "name": "40 Robux",
+        "amount": "",
+        "price": 35,
+        "category": ""
+      },
+      {
+        "name": "80 Robux",
+        "amount": "80 Robux",
+        "price": 55,
+        "category": null
+      },
+      {
+        "name": "160 Robux",
+        "amount": "",
+        "price": 100,
+        "category": ""
+      },
+      {
+        "name": "400 Robux",
+        "amount": "400 Robux",
+        "price": 250,
+        "category": ""
+      },
+      {
+        "name": "800 Robux",
+        "amount": "800 Robux",
+        "price": 450,
+        "category": ""
+      },
+      {
+        "name": "1200 Robux",
+        "amount": " ",
+        "price": 650,
+        "category": ""
+      },
+      {
+        "name": "2400 Robux",
+        "amount": "",
+        "price": 1300,
+        "category": ""
+      },
+      {
+        "name": "4800 Robux",
+        "amount": "",
+        "price": 2650,
+        "category": ""
+      },
+      {
+        "name": "7200 Robux",
+        "amount": "",
+        "price": 4000,
+        "category": ""
+      }
+    ]
+  },
+  {
+    "game": {
+      "name": "ببجي الكورية",
+      "slug": "pubg-kr",
+      "icon": "🎮",
+      "color": "from-yellow-500 to-amber-600",
+      "loginType": "id"
+    },
+    "packages": [
+      {
+        "name": "60 شدة",
+        "amount": "60 شدة",
+        "price": 70,
+        "category": "شدات ببجي الكورية"
+      },
+      {
+        "name": "190 شدة",
+        "amount": "190 شدة",
+        "price": 220,
+        "category": "شدات ببجي الكورية"
+      },
+      {
+        "name": "310 شدة",
+        "amount": "310 شدة",
+        "price": 360,
+        "category": "شدات ببجي الكورية"
+      },
+      {
+        "name": "380 شدة",
+        "amount": "380 شدة",
+        "price": 420,
+        "category": "شدات ببجي الكورية"
+      },
+      {
+        "name": "660 شدة",
+        "amount": "660 شدة",
+        "price": 600,
+        "category": "شدات ببجي الكورية"
+      },
+      {
+        "name": "1800 شدة",
+        "amount": "1800 شدة",
+        "price": 1450,
+        "category": "شدات ببجي الكورية"
+      }
+    ]
+  },
+  {
+    "game": {
+      "name": "ببجي  ID",
+      "slug": "pubg-id",
+      "icon": "🎮",
+      "color": "from-orange-500 to-amber-600",
+      "loginType": "id"
+    },
+    "packages": [
+      {
+        "name": "30 شدة",
+        "amount": "30 شدة",
+        "price": 35,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "60 شدة",
+        "amount": "60 شدة",
+        "price": 55,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "120 شده",
+        "amount": "",
+        "price": 110,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "325 شدة",
+        "amount": "325 شدة",
+        "price": 245,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "385 شدة",
+        "amount": "385 شدة",
+        "price": 290,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "660 شدة",
+        "amount": "660 شدة",
+        "price": 455,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "720 شدة",
+        "amount": "720 شدة",
+        "price": 500,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "1800 شدة",
+        "amount": "1800 شدة",
+        "price": 1160,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "3850 شدة",
+        "amount": "3850 شدة",
+        "price": 2290,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "5650 شدة",
+        "amount": "",
+        "price": 3370,
+        "category": "شدات عن طريق الـ ID"
+      },
+      {
+        "name": "ازدهار 1$ ",
+        "amount": "( العرض للاول )",
+        "price": 60,
+        "category": "عروض الازدهار"
+      },
+      {
+        "name": "ازدهار 3$ ",
+        "amount": "( العرض الثاني )",
+        "price": 155,
+        "category": "عروض الازدهار"
+      },
+      {
+        "name": "ازدهار 5$ ",
+        "amount": "( العرض الثالث )",
+        "price": 255,
+        "category": "عروض الازدهار"
+      },
+      {
+        "name": "برايم عادي",
+        "amount": "برايم عادي",
+        "price": 60,
+        "category": "عروض البرايم"
+      },
+      {
+        "name": "برايم بلس",
+        "amount": "برايم بلس",
+        "price": 480,
+        "category": "عروض البرايم"
+      }
+    ]
+  },
+  {
+    "game": {
+      "name": "ببجي أكونت",
+      "slug": "pubg-account",
+      "icon": "🎮",
+      "color": "from-orange-600 to-red-700",
+      "loginType": "account"
+    },
+    "packages": [
+      {
+        "name": "60 شدة",
+        "amount": "60 شدة",
+        "price": 55,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "120 شدة",
+        "amount": "120 شدة",
+        "price": 110,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "190 شدة",
+        "amount": "",
+        "price": 165,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "325 شدة",
+        "amount": "325 شدة",
+        "price": 235,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "385شدة",
+        "amount": "",
+        "price": 380,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "660 شدة",
+        "amount": "650 شدة",
+        "price": 445,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "1800 شدة",
+        "amount": "1800 شدة",
+        "price": 1100,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "3850 شدة",
+        "amount": "3850 شدة",
+        "price": 2200,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "5650 شدة",
+        "amount": "",
+        "price": 3340,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "8100 شدة",
+        "amount": "8100 شدة",
+        "price": 4350,
+        "category": "شحن عن طريق الأكونت"
+      },
+      {
+        "name": "ازدهار 1$ ",
+        "amount": "( العرض الاول )",
+        "price": 55,
+        "category": "عروض الازدهار"
+      },
+      {
+        "name": "ازدهار 3$ ",
+        "amount": "( العرض الثاني )",
+        "price": 145,
+        "category": "عروض الازدهار"
+      },
+      {
+        "name": "ازدهار 5$ ",
+        "amount": "( العرض الثالث )",
+        "price": 245,
+        "category": "عروض الازدهار"
+      },
+      {
+        "name": "برايم عادي",
+        "amount": "",
+        "price": 55,
+        "category": "عروض البرايم"
+      },
+      {
+        "name": "برايم بلس",
+        "amount": "",
+        "price": 460,
+        "category": "عروض البرايم"
+      }
+    ]
+  },
+  {
+    "game": {
+      "name": "عملات تيك توك",
+      "slug": "tiktok",
+      "icon": "🎵",
+      "color": "from-pink-500 to-rose-600",
+      "loginType": "account"
+    },
+    "packages": [
+      {
+        "name": "70 Coins",
+        "amount": "70 Coins",
+        "price": 55,
+        "category": ""
+      },
+      {
+        "name": "140 Coins",
+        "amount": "140 Coins",
+        "price": 110,
+        "category": null
+      },
+      {
+        "name": "350 Coins",
+        "amount": "350 Coins",
+        "price": 230,
+        "category": ""
+      },
+      {
+        "name": "700 Coins",
+        "amount": "700 Coins",
+        "price": 430,
+        "category": ""
+      },
+      {
+        "name": "1000 Coins",
+        "amount": "",
+        "price": 550,
+        "category": ""
+      },
+      {
+        "name": "1400 Coins",
+        "amount": "",
+        "price": 850,
+        "category": ""
+      },
+      {
+        "name": "2000 Coins",
+        "amount": "2000 Coins",
+        "price": 1150,
+        "category": ""
+      },
+      {
+        "name": "3500 Coins",
+        "amount": "",
+        "price": 2150,
+        "category": ""
+      },
+      {
+        "name": "7000 Coins",
+        "amount": "",
+        "price": 4100,
+        "category": ""
+      }
+    ]
+  },
+  {
+    "game": {
+      "name": "FC Points ",
+      "slug": "fifa-mobile",
+      "icon": "⚽",
+      "color": "from-green-500 to-emerald-600",
+      "loginType": "account"
+    },
+    "packages": [
+      {
+        "name": "40 FC Points",
+        "amount": "",
+        "price": 35,
+        "category": ""
+      },
+      {
+        "name": "100 FC Points",
+        "amount": "160 FC Points",
+        "price": 75,
+        "category": ""
+      },
+      {
+        "name": "750 FC Points",
+        "amount": "750 FC Points",
+        "price": 230,
+        "category": null
+      },
+      {
+        "name": "1500 FC Points",
+        "amount": "1500 FC Points",
+        "price": 450,
+        "category": null
+      },
+      {
+        "name": "3000 FC Points",
+        "amount": "3000 FC Points",
+        "price": 870,
+        "category": null
+      },
+      {
+        "name": "7500 FC Points",
+        "amount": "7500 FC Points",
+        "price": 2100,
+        "category": null
+      },
+      {
+        "name": "15000 FC Points",
+        "amount": "15000 FC Points",
+        "price": 4200,
+        "category": null
+      }
+    ]
+  },
+  {
+    "game": {
+      "name": "فري فاير اكونت",
+      "slug": "freefire",
+      "icon": "🔥",
+      "color": "from-red-500 to-orange-600",
+      "loginType": "account"
+    },
+    "packages": [
+      {
+        "name": "110 جوهرة",
+        "amount": "110 جوهرة",
+        "price": 50,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "231 جوهرة",
+        "amount": "231 جوهرة",
+        "price": 100,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "310 جوهرة",
+        "amount": "310 جوهرة",
+        "price": 140,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "520 جوهرة",
+        "amount": "520 جوهرة",
+        "price": 240,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "1060 جوهرة",
+        "amount": "1060 جوهرة",
+        "price": 475,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "2120 جوهرة",
+        "amount": "2120 جوهرة",
+        "price": 950,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "2420 جوهرة",
+        "amount": "2420 جوهرة",
+        "price": 1070,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "4240 جوهرة",
+        "amount": "4240 جوهرة",
+        "price": 1840,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "5500 جوهرة",
+        "amount": "5500 جوهرة",
+        "price": 2400,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "10600 جوهرة",
+        "amount": "10600 جوهرة",
+        "price": 4600,
+        "category": "شحن عن طريق الاكونت"
+      },
+      {
+        "name": "عضوية اسبوعية مخففة",
+        "amount": "عضوية اسبوعية مخففة",
+        "price": 40,
+        "category": "عضويات"
+      },
+      {
+        "name": "عضوية أسبوعي",
+        "amount": "عضوية أسبوعي",
+        "price": 80,
+        "category": "عضويات"
+      },
+      {
+        "name": "عضوية شهرية",
+        "amount": "عضوية شهرية",
+        "price": 420,
+        "category": "عضويات"
+      },
+      {
+        "name": "بويا باس اكاونت ",
+        "amount": "بويا باس",
+        "price": 65,
+        "category": "بويا باس"
+      },
+      {
+        "name": "دروب 16.99ج",
+        "amount": "",
+        "price": 35,
+        "category": "دروبات"
+      },
+      {
+        "name": "دروب 34.99ج",
+        "amount": "",
+        "price": 75,
+        "category": "دروبات"
+      },
+      {
+        "name": "دروب 49.99ج",
+        "amount": "",
+        "price": 45,
+        "category": "دروبات"
+      },
+      {
+        "name": "دروب 99.99ج",
+        "amount": "",
+        "price": 90,
+        "category": "دروبات"
+      }
+    ]
+  },
+  {
+    "game": {
+      "name": "فري فاير ID",
+      "slug": "freefire-id",
+      "icon": "🔥",
+      "color": "from-orange-600 to-red-700",
+      "loginType": "id"
+    },
+    "packages": [
+      {
+        "name": "110 جوهرة",
+        "amount": "110 جوهرة",
+        "price": 55,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "231 جوهرة",
+        "amount": "231 جوهرة",
+        "price": 110,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "341 جوهرة",
+        "amount": "341 جوهرة",
+        "price": 160,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "583 جوهرة",
+        "amount": "583 جوهرة",
+        "price": 265,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "1023 جوهرة",
+        "amount": "1045 جوهرة",
+        "price": 475,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "1188 جوهرة",
+        "amount": "1188 جوهرة",
+        "price": 530,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "2000 جوهرة",
+        "amount": "2000 جوهرة",
+        "price": 890,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "2398 جوهرة",
+        "amount": "2233 جوهرة",
+        "price": 1000,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "4796 جوهرة",
+        "amount": "4653 جوهرة",
+        "price": 1960,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "5000 جوهرة",
+        "amount": "5000 جوهرة",
+        "price": 2050,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "10000 جوهرة",
+        "amount": "10000 جوهرة",
+        "price": 4000,
+        "category": "شحن عن طريق الـ ID"
+      },
+      {
+        "name": "عضوية اسبوعية ID",
+        "amount": "عضوية اسبوعية ID",
+        "price": 125,
+        "category": "عضويات"
+      },
+      {
+        "name": "عضوية شهرية ID",
+        "amount": "عضوية شهرية ID",
+        "price": 565,
+        "category": "عضويات"
+      },
+      {
+        "name": "عرض المستوي كامل ID",
+        "amount": "عرض المستوي كامل ID",
+        "price": 200,
+        "category": "عرض المستوي "
+      },
+      {
+        "name": "عرض المستوي لفل6",
+        "amount": "عرض المستوي لفل6",
+        "price": 25,
+        "category": "عرض المستوي "
+      },
+      {
+        "name": "عرض المستوي لفل 10",
+        "amount": "عرض المستوي لفل 10",
+        "price": 40,
+        "category": "عرض المستوي "
+      },
+      {
+        "name": "عرض المستوي لفل 15",
+        "amount": "عرض المستوي لفل 15",
+        "price": 40,
+        "category": "عرض المستوي "
+      },
+      {
+        "name": "عرض المستوي لفل 20",
+        "amount": "عرض المستوي لفل 20",
+        "price": 40,
+        "category": "عرض المستوي "
+      },
+      {
+        "name": "عرض المستوي لفل 25",
+        "amount": "عرض المستوي لفل 25",
+        "price": 40,
+        "category": "عرض المستوي "
+      },
+      {
+        "name": "عرض المستوي لفل 30",
+        "amount": "عرض المستوي لفل 30",
+        "price": 60,
+        "category": "عرض المستوي "
+      }
+    ]
+  }
+]
