@@ -243,6 +243,33 @@ export const paymentMethodsData = [
   },
 ];
 
+export const coursesData = [
+  {
+    id: "course-1",
+    icon: "📘",
+    title: "كورس الفيسبوك",
+    description: "تعلم كيفية إدارة وتسويق حسابات الفيسبوك باحترافية.",
+    price: "3000",
+    features: ["إنشاء وحماية الحسابات", "استراتيجيات المحتوى", "زيادة المتابعين"],
+  },
+  {
+    id: "course-2",
+    icon: "🎨",
+    title: "كورس التصميم",
+    description: "أساسيات التصميم الجرافيكي وأدوات الاحتراف.",
+    price: "2500",
+    features: ["فوتوشوب وكانفا", "تصميم بوستات", "هوية بصرية"],
+  },
+  {
+    id: "course-3",
+    icon: "🎮",
+    title: "كورس شحن الألعاب",
+    description: "تعلم آلية شحن الألعاب والتعامل مع المتاجر.",
+    price: "1500",
+    features: ["شراء الباقات", "إدارة العملاء", "حل المشكلات"],
+  },
+];
+
 export const guaranteeLinks = {
   facebook: "https://www.facebook.com/share/p/1HvguAgDoj/",
   whatsappGroups: [

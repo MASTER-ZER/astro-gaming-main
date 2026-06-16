@@ -124,7 +124,7 @@ function OfferCard({ offer, req }: { offer: BrokerOffer; req: BrokerRequest }) {
   const [showCreds, setShowCreds] = useState(false);
 
   const updateOfferMutation = useMutation({
-    mutationFn: (data: any) => apiRequest(`/api/admin/broker/offers/${offer.id}`, { method: "PATCH", body: JSON.stringify(data) }),
+    mutationFn: (data: any) => apiRequest("PATCH", `/api/admin/broker/offers/${offer.id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/broker/offers"] });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/broker/requests"] });
@@ -134,7 +134,7 @@ function OfferCard({ offer, req }: { offer: BrokerOffer; req: BrokerRequest }) {
   });
 
   const updateRequestMutation = useMutation({
-    mutationFn: (data: any) => apiRequest(`/api/admin/broker/requests/${req.id}`, { method: "PATCH", body: JSON.stringify(data) }),
+    mutationFn: (data: any) => apiRequest("PATCH", `/api/admin/broker/requests/${req.id}`, data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["/api/admin/broker/requests"] }),
     onError: () => toast({ title: "خطأ", variant: "destructive" }),
   });
@@ -282,7 +282,7 @@ export default function AdminBroker() {
   });
 
   const updateRequestMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: any }) => apiRequest(`/api/admin/broker/requests/${id}`, { method: "PATCH", body: JSON.stringify(data) }),
+    mutationFn: ({ id, data }: { id: string; data: any }) => apiRequest("PATCH", `/api/admin/broker/requests/${id}`, data),
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["/api/admin/broker/requests"] }); toast({ title: "تم التحديث" }); },
     onError: () => toast({ title: "خطأ", variant: "destructive" }),
   });

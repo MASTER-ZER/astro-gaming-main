@@ -867,11 +867,11 @@ export default function Order() {
                         <p className="text-xs text-red-400">رصيدك غير كافي. تحتاج {totalPrice - customer.balance} جنيه إضافية.</p>
                         <div className="flex gap-2 mt-1">
                           <Link href="/wallet">
-                            <Button variant="link" size="sm" className="text-primary text-xs p-0 h-auto" data-testid="link-deposit">
+                            <Button variant="ghost" size="sm" className="text-primary text-xs p-0 h-auto" data-testid="link-deposit">
                               إيداع رصيد
                             </Button>
                           </Link>
-                          <Button variant="link" size="sm" className="text-muted-foreground text-xs p-0 h-auto" onClick={() => setPaymentType("direct")} data-testid="button-switch-direct">
+                          <Button variant="ghost" size="sm" className="text-muted-foreground text-xs p-0 h-auto" onClick={() => setPaymentType("direct")} data-testid="button-switch-direct">
                             أو ادفع مباشرة
                           </Button>
                         </div>

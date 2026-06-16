@@ -299,8 +299,8 @@ export default function Cart() {
                             </button>
                           </div>
                         )}
-                        {method.accountName && paymentMethod === method.id && (
-                          <p className="text-xs text-muted-foreground">{method.accountName}</p>
+                        {(method as PaymentMethod).accountName && paymentMethod === method.id && (
+                          <p className="text-xs text-muted-foreground">{(method as PaymentMethod).accountName}</p>
                         )}
                       </div>
                     </div>

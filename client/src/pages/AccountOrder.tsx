@@ -108,7 +108,7 @@ function StatusTimeline({ currentStatus }: { currentStatus: string }) {
                 className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-500 ${isDone || isCurrent ? "ring-2 ring-offset-2 ring-offset-background" : ""}`}
                 style={{
                   background: isDone ? step.color : isCurrent ? `${step.color}30` : "rgba(255,255,255,0.05)",
-                  ringColor: step.color,
+                  ["--tw-ring-color" as any]: step.color,
                   borderColor: isCurrent ? step.color : "transparent",
                   border: isCurrent ? `2px solid ${step.color}` : "2px solid transparent",
                 }}

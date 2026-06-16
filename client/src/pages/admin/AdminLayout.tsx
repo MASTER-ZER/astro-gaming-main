@@ -96,7 +96,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     checkAuth();
   }, []);
 
-  const { data: unreadCount = 0 } = useQuery<{ count: number }>({
+  const { data: unreadCount = 0 } = useQuery<{ count: number }, Error, number>({
     queryKey: ["/api/notifications/unread-count"],
     refetchInterval: 60000,
     select: (data) => data.count,

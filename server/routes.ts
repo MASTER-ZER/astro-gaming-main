@@ -2,7 +2,7 @@ import type { Express, Request, Response, NextFunction } from "express";
 import type { RequestHandler } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertOrderSchema, insertGameSchema, insertPackageSchema, insertCourseSchema, insertAccountSchema, insertAccountSellRequestSchema, insertPaymentMethodSchema, insertChatMessageSchema } from "@shared/schema";
+import { insertOrderSchema, insertGameSchema, insertPackageSchema, insertCourseSchema, insertAccountSchema, insertAccountSellRequestSchema, insertPaymentMethodSchema, insertChatMessageSchema } from "../shared/schema";
 import { z } from "zod";
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
@@ -177,7 +177,7 @@ export async function registerRoutes(
   });
 
   app.get("/uploads/:filename", async (req, res) => {
-    const filename = req.params.filename;
+    const filename = (req.params.filename as string);
     const localPath = path.join(uploadsDir, filename);
     if (fs.existsSync(localPath)) {
       return res.sendFile(localPath);
@@ -739,7 +739,7 @@ export async function registerRoutes(
 
   app.patch("/api/customer/inbox/:id/read", requireCustomerAuth as any, async (req: Request, res: Response) => {
     try {
-      await storage.markInboxRead(req.params.id);
+      await storage.markInboxRead((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       res.status(500).json({ error: "Failed to mark read" });
@@ -1163,7 +1163,7 @@ export async function registerRoutes(
 
   app.patch("/api/admin/admin-users/:id", requireAdminAuth, async (req, res) => {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { name, role, isActive, password } = req.body;
       const updateData: any = {};
       if (name !== undefined) updateData.name = name;
@@ -1180,7 +1180,7 @@ export async function registerRoutes(
 
   app.delete("/api/admin/admin-users/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deleteAdminUser(req.params.id);
+      await storage.deleteAdminUser((req.params.id as string));
       res.json({ success: true });
     } catch (err) {
       res.status(500).json({ error: "فشل حذف المشرف" });
@@ -1225,7 +1225,7 @@ export async function registerRoutes(
 
   app.patch("/api/admin/discount-codes/:id", requireAdminAuth, async (req, res) => {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const updateData: any = { ...req.body };
       if (updateData.discountValue) updateData.discountValue = Number(updateData.discountValue);
       if (updateData.maxUses) updateData.maxUses = Number(updateData.maxUses);
@@ -1244,7 +1244,7 @@ export async function registerRoutes(
 
   app.delete("/api/admin/discount-codes/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deleteDiscountCode(req.params.id);
+      await storage.deleteDiscountCode((req.params.id as string));
       res.json({ success: true });
     } catch (err) {
       res.status(500).json({ error: "فشل حذف كود الخصم" });
@@ -1297,7 +1297,7 @@ export async function registerRoutes(
 
   app.get("/api/games/:slug", async (req, res) => {
     try {
-      const game = await storage.getGameBySlug(req.params.slug);
+      const game = await storage.getGameBySlug((req.params.slug as string));
       if (!game) {
         return res.status(404).json({ error: "Game not found" });
       }
@@ -1310,7 +1310,7 @@ export async function registerRoutes(
 
   app.get("/api/games/:slug/packages", async (req, res) => {
     try {
-      const game = await storage.getGameBySlug(req.params.slug);
+      const game = await storage.getGameBySlug((req.params.slug as string));
       if (!game) {
         return res.status(404).json({ error: "Game not found" });
       }
@@ -1339,7 +1339,7 @@ export async function registerRoutes(
   app.put("/api/games/:id", requireAdminAuth, async (req, res) => {
     try {
       const gameData = updateGameSchema.parse(req.body);
-      const game = await storage.updateGame(req.params.id, gameData);
+      const game = await storage.updateGame((req.params.id as string), gameData);
       if (!game) {
         return res.status(404).json({ error: "Game not found" });
       }
@@ -1355,7 +1355,7 @@ export async function registerRoutes(
 
   app.delete("/api/games/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deleteGame(req.params.id);
+      await storage.deleteGame((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting game:", error);
@@ -1376,7 +1376,7 @@ export async function registerRoutes(
   // Upsert packages for a game: update by name if exists, insert if not
   app.post("/api/games/:id/import-packages", requireAdminAuth, async (req, res) => {
     try {
-      const gameId = req.params.id;
+      const gameId = (req.params.id as string);
       const { packages: incomingPkgs, mode } = req.body;
       if (!Array.isArray(incomingPkgs)) return res.status(400).json({ error: "packages array required" });
 
@@ -1569,7 +1569,7 @@ export async function registerRoutes(
   app.put("/api/packages/:id", requireAdminAuth, async (req, res) => {
     try {
       const packageData = updatePackageSchema.parse(req.body);
-      const pkg = await storage.updatePackage(req.params.id, packageData);
+      const pkg = await storage.updatePackage((req.params.id as string), packageData);
       if (!pkg) {
         return res.status(404).json({ error: "Package not found" });
       }
@@ -1585,7 +1585,7 @@ export async function registerRoutes(
 
   app.delete("/api/games/:id/packages", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deleteGamePackages(req.params.id);
+      await storage.deleteGamePackages((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting game packages:", error);
@@ -1595,7 +1595,7 @@ export async function registerRoutes(
 
   app.delete("/api/packages/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deletePackage(req.params.id);
+      await storage.deletePackage((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting package:", error);
@@ -1662,7 +1662,7 @@ export async function registerRoutes(
 
   app.get("/api/orders/:id", requireAdminAuth, async (req, res) => {
     try {
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order) {
         return res.status(404).json({ error: "Order not found" });
       }
@@ -1908,7 +1908,7 @@ export async function registerRoutes(
   app.patch("/api/orders/:id", requireAdminAuth, async (req, res) => {
     try {
       const { status } = updateOrderStatusSchema.parse(req.body);
-      const order = await storage.updateOrderStatus(req.params.id, status);
+      const order = await storage.updateOrderStatus((req.params.id as string), status);
       if (!order) {
         return res.status(404).json({ error: "Order not found" });
       }
@@ -2000,11 +2000,11 @@ export async function registerRoutes(
 
   app.delete("/api/orders/:id", requireAdminAuth, async (req, res) => {
     try {
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order) {
         return res.status(404).json({ error: "Order not found" });
       }
-      await storage.deleteOrder(req.params.id);
+      await storage.deleteOrder((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting order:", error);
@@ -2025,7 +2025,7 @@ export async function registerRoutes(
 
   app.get("/api/courses/:id", async (req, res) => {
     try {
-      const course = await storage.getCourseById(req.params.id);
+      const course = await storage.getCourseById((req.params.id as string));
       if (!course) {
         return res.status(404).json({ error: "Course not found" });
       }
@@ -2053,7 +2053,7 @@ export async function registerRoutes(
   app.put("/api/courses/:id", requireAdminAuth, async (req, res) => {
     try {
       const courseData = updateCourseSchema.parse(req.body);
-      const course = await storage.updateCourse(req.params.id, courseData);
+      const course = await storage.updateCourse((req.params.id as string), courseData);
       if (!course) {
         return res.status(404).json({ error: "Course not found" });
       }
@@ -2069,7 +2069,7 @@ export async function registerRoutes(
 
   app.delete("/api/courses/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deleteCourse(req.params.id);
+      await storage.deleteCourse((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting course:", error);
@@ -2095,7 +2095,7 @@ export async function registerRoutes(
 
   app.get("/api/accounts/:id", async (req, res) => {
     try {
-      const account = await storage.getAccountById(req.params.id);
+      const account = await storage.getAccountById((req.params.id as string));
       if (!account) {
         return res.status(404).json({ error: "Account not found" });
       }
@@ -2108,7 +2108,7 @@ export async function registerRoutes(
 
   app.get("/api/games/:gameId/accounts", async (req, res) => {
     try {
-      const accounts = await storage.getAccountsByGameId(req.params.gameId);
+      const accounts = await storage.getAccountsByGameId((req.params.gameId as string));
       res.json(accounts.map(stripSellerInfo));
     } catch (error) {
       console.error("Error fetching accounts:", error);
@@ -2133,7 +2133,7 @@ export async function registerRoutes(
   app.put("/api/accounts/:id", requireAdminAuth, async (req, res) => {
     try {
       const accountData = updateAccountSchema.parse(req.body);
-      const account = await storage.updateAccount(req.params.id, accountData);
+      const account = await storage.updateAccount((req.params.id as string), accountData);
       if (!account) {
         return res.status(404).json({ error: "Account not found" });
       }
@@ -2149,7 +2149,7 @@ export async function registerRoutes(
 
   app.delete("/api/accounts/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deleteAccount(req.params.id);
+      await storage.deleteAccount((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting account:", error);
@@ -2209,7 +2209,7 @@ export async function registerRoutes(
 
   app.put("/api/account-sell-requests/:id/approve", requireAdminAuth, async (req, res) => {
     try {
-      const sellRequest = await storage.getAccountSellRequestById(req.params.id);
+      const sellRequest = await storage.getAccountSellRequestById((req.params.id as string));
       if (!sellRequest) return res.status(404).json({ error: "Sell request not found" });
       const sellerPrice = sellRequest.requestedPrice;
       const buyerPrice = Math.ceil(sellerPrice * 1.03);
@@ -2231,7 +2231,7 @@ export async function registerRoutes(
         isActive: true,
         isSold: false,
       });
-      await storage.updateAccountSellRequestStatus(req.params.id, "approved", req.body.adminNote, account.id);
+      await storage.updateAccountSellRequestStatus((req.params.id as string), "approved", req.body.adminNote, account.id);
       res.json({ success: true, account });
     } catch (error) {
       console.error("Error approving sell request:", error);
@@ -2241,9 +2241,9 @@ export async function registerRoutes(
 
   app.put("/api/account-sell-requests/:id/reject", requireAdminAuth, async (req, res) => {
     try {
-      const sellRequest = await storage.getAccountSellRequestById(req.params.id);
+      const sellRequest = await storage.getAccountSellRequestById((req.params.id as string));
       if (!sellRequest) return res.status(404).json({ error: "Sell request not found" });
-      await storage.updateAccountSellRequestStatus(req.params.id, "rejected", req.body.adminNote);
+      await storage.updateAccountSellRequestStatus((req.params.id as string), "rejected", req.body.adminNote);
       res.json({ success: true });
     } catch (error) {
       console.error("Error rejecting sell request:", error);
@@ -2253,9 +2253,9 @@ export async function registerRoutes(
 
   app.put("/api/accounts/:id/seller-paid", requireAdminAuth, async (req, res) => {
     try {
-      const account = await storage.getAccountById(req.params.id);
+      const account = await storage.getAccountById((req.params.id as string));
       if (!account) return res.status(404).json({ error: "Account not found" });
-      await storage.updateAccount(req.params.id, { sellerPaid: true } as any);
+      await storage.updateAccount((req.params.id as string), { sellerPaid: true } as any);
       if (account.sellerPhone) {
         const sellerCustomer = await storage.getCustomerByPhone(account.sellerPhone);
         if (sellerCustomer) {
@@ -2302,7 +2302,7 @@ export async function registerRoutes(
   app.put("/api/payment-methods/:id", requireAdminAuth, async (req, res) => {
     try {
       const methodData = updatePaymentMethodSchema.parse(req.body);
-      const method = await storage.updatePaymentMethod(req.params.id, methodData);
+      const method = await storage.updatePaymentMethod((req.params.id as string), methodData);
       if (!method) {
         return res.status(404).json({ error: "Payment method not found" });
       }
@@ -2318,7 +2318,7 @@ export async function registerRoutes(
 
   app.delete("/api/payment-methods/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deletePaymentMethod(req.params.id);
+      await storage.deletePaymentMethod((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting payment method:", error);
@@ -2349,7 +2349,7 @@ export async function registerRoutes(
 
   app.patch("/api/notifications/:id/read", requireAdminAuth, async (req, res) => {
     try {
-      await storage.markNotificationRead(req.params.id);
+      await storage.markNotificationRead((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       console.error("Error marking notification read:", error);
@@ -2411,7 +2411,7 @@ export async function registerRoutes(
   // Customer inbox API (by phone number)
   app.get("/api/inbox/:phone", async (req, res) => {
     try {
-      const messages = await storage.getCustomerInbox(req.params.phone);
+      const messages = await storage.getCustomerInbox((req.params.phone as string));
       res.json(messages);
     } catch (error) {
       console.error("Error fetching inbox:", error);
@@ -2421,7 +2421,7 @@ export async function registerRoutes(
 
   app.patch("/api/inbox/:id/read", async (req, res) => {
     try {
-      await storage.markInboxRead(req.params.id);
+      await storage.markInboxRead((req.params.id as string));
       res.json({ success: true });
     } catch (error) {
       console.error("Error marking inbox read:", error);
@@ -2432,7 +2432,7 @@ export async function registerRoutes(
   // Order lookup by phone (public)
   app.get("/api/orders/lookup/:phone", async (req, res) => {
     try {
-      const orders = await storage.getOrdersByPhone(req.params.phone);
+      const orders = await storage.getOrdersByPhone((req.params.phone as string));
       const ordersWithGame = await Promise.all(orders.map(async (order) => {
         let game, pkg;
         if (order.gameId) {
@@ -2452,7 +2452,7 @@ export async function registerRoutes(
 
   app.get("/api/orders/track/:orderNumber", async (req, res) => {
     try {
-      const order = await storage.getOrderByNumber(req.params.orderNumber);
+      const order = await storage.getOrderByNumber((req.params.orderNumber as string));
       if (!order) {
         return res.status(404).json({ error: "Order not found" });
       }
@@ -2473,7 +2473,7 @@ export async function registerRoutes(
   // GET /api/account-orders/track/:orderNumber — Public account order tracking (no auth)
   app.get("/api/account-orders/track/:orderNumber", async (req, res) => {
     try {
-      const orderNumber = req.params.orderNumber.trim().toUpperCase();
+      const orderNumber = (req.params.orderNumber as string).trim().toUpperCase();
       const order = await storage.getOrderByNumber(orderNumber);
       if (!order || order.orderType !== "account") {
         return res.status(404).json({ error: "الطلب غير موجود" });
@@ -2506,7 +2506,7 @@ export async function registerRoutes(
   // Chat messages API
   app.get("/api/chat/:orderId", async (req, res) => {
     try {
-      const messages = await storage.getChatMessages(req.params.orderId);
+      const messages = await storage.getChatMessages((req.params.orderId as string));
       res.json(messages);
     } catch (error) {
       console.error("Error fetching chat:", error);
@@ -2521,13 +2521,13 @@ export async function registerRoutes(
         return res.status(400).json({ error: "Missing message or senderType" });
       }
       const chatMsg = await storage.createChatMessage({
-        orderId: req.params.orderId,
+        orderId: (req.params.orderId as string),
         senderType,
         message,
       });
 
       if (senderType === "customer") {
-        const order = await storage.getOrderById(req.params.orderId);
+        const order = await storage.getOrderById((req.params.orderId as string));
         if (order) {
           sendChatNotificationToTelegram(order.orderNumber, order.customerName, message)
             .catch(err => console.error("Telegram chat notification error:", err));
@@ -2544,7 +2544,7 @@ export async function registerRoutes(
   app.patch("/api/chat/:orderId/read", async (req, res) => {
     try {
       const { senderType } = req.body;
-      await storage.markChatMessagesRead(req.params.orderId, senderType);
+      await storage.markChatMessagesRead((req.params.orderId as string), senderType);
       res.json({ success: true });
     } catch (error) {
       console.error("Error marking chat read:", error);
@@ -2624,8 +2624,8 @@ export async function registerRoutes(
   // Admin: get messages for a customer
   app.get("/api/admin/support/messages/:customerId", requireAdminAuth, async (req, res) => {
     try {
-      const msgs = await storage.getSupportMessages(req.params.customerId);
-      await storage.markSupportMessagesRead(req.params.customerId, "customer");
+      const msgs = await storage.getSupportMessages((req.params.customerId as string));
+      await storage.markSupportMessagesRead((req.params.customerId as string), "customer");
       res.json(msgs);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch messages" });
@@ -2638,7 +2638,7 @@ export async function registerRoutes(
       const { message, imageUrl } = req.body;
       if (!message?.trim() && !imageUrl) return res.status(400).json({ error: "الرسالة مطلوبة" });
       const msg = await storage.createSupportMessage({
-        customerId: req.params.customerId,
+        customerId: (req.params.customerId as string),
         senderType: "admin",
         message: message?.trim() || "",
         imageUrl: imageUrl || null,
@@ -2646,7 +2646,7 @@ export async function registerRoutes(
       });
       // Send push notification to customer
       try {
-        const cust = await storage.getCustomerById(req.params.customerId);
+        const cust = await storage.getCustomerById((req.params.customerId as string));
         if (cust) {
           await storage.createCustomerInboxMessage({
             customerPhone: cust.phone,
@@ -2686,7 +2686,7 @@ export async function registerRoutes(
 
   app.get("/api/settings/:key", requireAdminAuth, async (req, res) => {
     try {
-      const setting = await storage.getSetting(req.params.key);
+      const setting = await storage.getSetting((req.params.key as string));
       if (!setting) {
         return res.status(404).json({ error: "Setting not found" });
       }
@@ -2732,7 +2732,7 @@ export async function registerRoutes(
         return res.status(400).json({ error: "Invalid status" });
       }
 
-      const walletReq = await storage.getWalletRequestById(req.params.id);
+      const walletReq = await storage.getWalletRequestById((req.params.id as string));
       if (!walletReq) {
         return res.status(404).json({ error: "Request not found" });
       }
@@ -2741,7 +2741,7 @@ export async function registerRoutes(
         return res.status(400).json({ error: "هذا الطلب تم معالجته بالفعل" });
       }
 
-      const updated = await storage.updateWalletRequestStatus(req.params.id, status, adminNote);
+      const updated = await storage.updateWalletRequestStatus((req.params.id as string), status, adminNote);
 
       sendWalletStatusToTelegram(walletReq, status as "approved" | "rejected", adminNote).catch(() => {});
 
@@ -2823,7 +2823,7 @@ export async function registerRoutes(
 
   app.get("/api/admin/customers/:id", requireAdminAuth, async (req, res) => {
     try {
-      const customer = await storage.getCustomerById(req.params.id);
+      const customer = await storage.getCustomerById((req.params.id as string));
       if (!customer) {
         return res.status(404).json({ error: "Customer not found" });
       }
@@ -2864,7 +2864,7 @@ export async function registerRoutes(
       if (!amount || !type || !["credit", "debit"].includes(type)) {
         return res.status(400).json({ error: "Invalid balance adjustment" });
       }
-      const customer = await storage.getCustomerById(req.params.id);
+      const customer = await storage.getCustomerById((req.params.id as string));
       if (!customer) {
         return res.status(404).json({ error: "Customer not found" });
       }
@@ -2897,7 +2897,7 @@ export async function registerRoutes(
       if (!title || !message) {
         return res.status(400).json({ error: "العنوان والرسالة مطلوبين" });
       }
-      const customer = await storage.getCustomerById(req.params.id);
+      const customer = await storage.getCustomerById((req.params.id as string));
       if (!customer) {
         return res.status(404).json({ error: "Customer not found" });
       }
@@ -2922,7 +2922,7 @@ export async function registerRoutes(
 
   app.post("/api/admin/customers/:id/ban", requireAdminAuth, async (req, res) => {
     try {
-      const customer = await storage.getCustomerById(req.params.id);
+      const customer = await storage.getCustomerById((req.params.id as string));
       if (!customer) return res.status(404).json({ error: "Customer not found" });
       const reason = req.body?.reason?.trim() || null;
       const updated = await storage.updateCustomer(customer.id, {
@@ -2939,7 +2939,7 @@ export async function registerRoutes(
 
   app.post("/api/admin/customers/:id/unban", requireAdminAuth, async (req, res) => {
     try {
-      const customer = await storage.getCustomerById(req.params.id);
+      const customer = await storage.getCustomerById((req.params.id as string));
       if (!customer) return res.status(404).json({ error: "Customer not found" });
       const updated = await storage.updateCustomer(customer.id, {
         isBanned: false,
@@ -2956,7 +2956,7 @@ export async function registerRoutes(
     try {
       const { points, reason } = req.body;
       if (!points || points <= 0) return res.status(400).json({ error: "Points must be positive" });
-      const customer = await storage.getCustomerById(req.params.id);
+      const customer = await storage.getCustomerById((req.params.id as string));
       if (!customer) return res.status(404).json({ error: "Customer not found" });
       await storage.createLoyaltyTransaction({
         customerId: customer.id,
@@ -3071,7 +3071,7 @@ export async function registerRoutes(
       const { paymentProofUrl, senderPhone } = req.body;
       if (!paymentProofUrl) return res.status(400).json({ error: "paymentProofUrl مطلوب" });
 
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order || order.customerId !== customer.id) return res.status(404).json({ error: "الطلب غير موجود" });
       if (order.orderType !== "account") return res.status(400).json({ error: "هذا ليس طلب حساب" });
 
@@ -3137,7 +3137,7 @@ export async function registerRoutes(
   app.post("/api/admin/account-orders/:id/confirm-payment", requireAdminAuth, async (req, res) => {
     try {
       const { notes } = req.body;
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order || order.orderType !== "account") return res.status(404).json({ error: "الطلب غير موجود" });
 
       const updated = await storage.updateAccountOrderStatus(order.id, {
@@ -3180,7 +3180,7 @@ export async function registerRoutes(
       const { credentials, notes } = req.body;
       if (!credentials) return res.status(400).json({ error: "بيانات الحساب (credentials) مطلوبة" });
 
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order || order.orderType !== "account") return res.status(404).json({ error: "الطلب غير موجود" });
 
       const updated = await storage.updateAccountOrderStatus(order.id, {
@@ -3229,7 +3229,7 @@ export async function registerRoutes(
   app.post("/api/admin/account-orders/:id/reject", requireAdminAuth, async (req, res) => {
     try {
       const { notes } = req.body;
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order || order.orderType !== "account") return res.status(404).json({ error: "الطلب غير موجود" });
 
       const updated = await storage.updateAccountOrderStatus(order.id, {
@@ -3260,7 +3260,7 @@ export async function registerRoutes(
   app.post("/api/customer/account-orders/:id/confirm-receipt", requireCustomerAuth as any, async (req: Request, res: Response) => {
     try {
       const customer = (req as any).customer;
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order || order.customerId !== customer.id) return res.status(404).json({ error: "الطلب غير موجود" });
       if (order.orderType !== "account") return res.status(400).json({ error: "ليس طلب حساب" });
 
@@ -3303,7 +3303,7 @@ export async function registerRoutes(
       const { vodafoneCashNumber } = req.body;
       if (!vodafoneCashNumber) return res.status(400).json({ error: "رقم فودافون كاش مطلوب" });
 
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order) return res.status(404).json({ error: "الطلب غير موجود" });
 
       const updated = await storage.updateAccountOrderStatus(order.id, {
@@ -3333,7 +3333,7 @@ export async function registerRoutes(
   app.post("/api/admin/account-orders/:id/payout-sent", requireAdminAuth, async (req, res) => {
     try {
       const { notes } = req.body;
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order || order.orderType !== "account") return res.status(404).json({ error: "الطلب غير موجود" });
 
       const updated = await storage.updateAccountOrderStatus(order.id, {
@@ -3367,7 +3367,7 @@ export async function registerRoutes(
   app.get("/api/account-orders/:id", requireCustomerAuth as any, async (req: Request, res: Response) => {
     try {
       const customer = (req as any).customer;
-      const order = await storage.getOrderById(req.params.id);
+      const order = await storage.getOrderById((req.params.id as string));
       if (!order || order.customerId !== customer.id) return res.status(404).json({ error: "الطلب غير موجود" });
       let account = undefined;
       if (order.accountId) account = await storage.getAccountById(order.accountId);
@@ -3426,7 +3426,7 @@ export async function registerRoutes(
 
   app.get("/api/community/posts/:id", async (req, res) => {
     try {
-      const post = await storage.getCommunityPostById(req.params.id);
+      const post = await storage.getCommunityPostById((req.params.id as string));
       if (!post || post.status !== "published") return res.status(404).json({ error: "المنشور غير موجود" });
       res.json(post);
     } catch (error) {
@@ -3436,7 +3436,7 @@ export async function registerRoutes(
 
   app.get("/api/community/posts/:id/comments", async (req, res) => {
     try {
-      const comments = await storage.getPostComments(req.params.id, false);
+      const comments = await storage.getPostComments((req.params.id as string), false);
       res.json(comments);
     } catch (error) {
       res.status(500).json({ error: "فشل في تحميل التعليقات" });
@@ -3446,14 +3446,14 @@ export async function registerRoutes(
   app.post("/api/community/posts/:id/comments", requireCustomerAuth as any, async (req, res) => {
     try {
       const customer = (req as any).customer;
-      const post = await storage.getCommunityPostById(req.params.id);
+      const post = await storage.getCommunityPostById((req.params.id as string));
       if (!post || post.status !== "published") return res.status(404).json({ error: "المنشور غير موجود" });
       if (!post.commentsEnabled) return res.status(403).json({ error: "التعليقات مغلقة على هذا المنشور" });
       const { content } = req.body;
       if (!content || content.trim().length < 2) return res.status(400).json({ error: "التعليق قصير جداً" });
       if (content.trim().length > 1000) return res.status(400).json({ error: "التعليق طويل جداً" });
       const comment = await storage.createPostComment({
-        postId: req.params.id,
+        postId: (req.params.id as string),
         customerId: customer.id,
         authorName: customer.name || customer.username || "مستخدم",
         content: content.trim(),
@@ -3477,7 +3477,7 @@ export async function registerRoutes(
 
   app.get("/api/admin/community/posts/:id", requireAdminAuth, async (req, res) => {
     try {
-      const post = await storage.getCommunityPostById(req.params.id);
+      const post = await storage.getCommunityPostById((req.params.id as string));
       if (!post) return res.status(404).json({ error: "المنشور غير موجود" });
       res.json(post);
     } catch (error) {
@@ -3506,7 +3506,7 @@ export async function registerRoutes(
   app.patch("/api/admin/community/posts/:id", requireAdminAuth, async (req, res) => {
     try {
       const { title, content, coverImage, images, status, commentsEnabled, publisherName } = req.body;
-      const post = await storage.updateCommunityPost(req.params.id, {
+      const post = await storage.updateCommunityPost((req.params.id as string), {
         ...(title !== undefined && { title }),
         ...(content !== undefined && { content }),
         ...(coverImage !== undefined && { coverImage }),
@@ -3524,7 +3524,7 @@ export async function registerRoutes(
 
   app.delete("/api/admin/community/posts/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deleteCommunityPost(req.params.id);
+      await storage.deleteCommunityPost((req.params.id as string));
       res.json({ ok: true });
     } catch (error) {
       res.status(500).json({ error: "فشل في حذف المنشور" });
@@ -3545,7 +3545,7 @@ export async function registerRoutes(
   app.patch("/api/admin/community/comments/:id", requireAdminAuth, async (req, res) => {
     try {
       const { isHidden } = req.body;
-      const comment = await storage.updatePostComment(req.params.id, { isHidden });
+      const comment = await storage.updatePostComment((req.params.id as string), { isHidden });
       if (!comment) return res.status(404).json({ error: "التعليق غير موجود" });
       res.json(comment);
     } catch (error) {
@@ -3555,7 +3555,7 @@ export async function registerRoutes(
 
   app.delete("/api/admin/community/comments/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deletePostComment(req.params.id);
+      await storage.deletePostComment((req.params.id as string));
       res.json({ ok: true });
     } catch (error) {
       res.status(500).json({ error: "فشل في حذف التعليق" });
@@ -3573,7 +3573,7 @@ export async function registerRoutes(
 
   app.get("/api/competitions/:id", async (req, res) => {
     try {
-      const comp = await storage.getCompetitionById(req.params.id);
+      const comp = await storage.getCompetitionById((req.params.id as string));
       if (!comp || !comp.isVisible) return res.status(404).json({ error: "المسابقة غير موجودة" });
       res.json(comp);
     } catch { res.status(500).json({ error: "فشل" }); }
@@ -3595,7 +3595,7 @@ export async function registerRoutes(
 
   app.patch("/api/admin/competitions/:id", requireAdminAuth, async (req, res) => {
     try {
-      const comp = await storage.updateCompetition(req.params.id, req.body);
+      const comp = await storage.updateCompetition((req.params.id as string), req.body);
       if (!comp) return res.status(404).json({ error: "غير موجود" });
       res.json(comp);
     } catch { res.status(500).json({ error: "فشل في التحديث" }); }
@@ -3603,7 +3603,7 @@ export async function registerRoutes(
 
   app.delete("/api/admin/competitions/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deleteCompetition(req.params.id);
+      await storage.deleteCompetition((req.params.id as string));
       res.json({ ok: true });
     } catch { res.status(500).json({ error: "فشل في الحذف" }); }
   });
@@ -3663,14 +3663,14 @@ export async function registerRoutes(
 
   app.patch("/api/admin/sardarb/items/:id", requireAdminAuth, async (req, res) => {
     try {
-      const item = await storage.updateSardarbItem(req.params.id, req.body);
+      const item = await storage.updateSardarbItem((req.params.id as string), req.body);
       if (!item) return res.status(404).json({ error: "غير موجود" });
       res.json(item);
     } catch { res.status(500).json({ error: "فشل في التحديث" }); }
   });
 
   app.delete("/api/admin/sardarb/items/:id", requireAdminAuth, async (req, res) => {
-    try { await storage.deleteSardarbItem(req.params.id); res.json({ ok: true }); }
+    try { await storage.deleteSardarbItem((req.params.id as string)); res.json({ ok: true }); }
     catch { res.status(500).json({ error: "فشل في الحذف" }); }
   });
 
@@ -3681,7 +3681,7 @@ export async function registerRoutes(
 
   app.patch("/api/admin/sardarb/orders/:id", requireAdminAuth, async (req, res) => {
     try {
-      const order = await storage.updateSardarbOrder(req.params.id, req.body);
+      const order = await storage.updateSardarbOrder((req.params.id as string), req.body);
       if (!order) return res.status(404).json({ error: "غير موجود" });
       // If delivering code, send inbox message to customer
       if (req.body.status === "delivered" && req.body.deliveredCode && order.customerId) {
@@ -3745,7 +3745,7 @@ export async function registerRoutes(
   app.post("/api/virtual-numbers/request-otp/:orderId", requireCustomerAuth as any, async (req, res) => {
     try {
       const customer = (req as any).customer;
-      const order = await storage.getVirtualNumberOrderById(req.params.orderId);
+      const order = await storage.getVirtualNumberOrderById((req.params.orderId as string));
       if (!order || order.customerId !== customer.id) return res.status(404).json({ error: "غير موجود" });
       if (order.status !== "number_sent") return res.status(400).json({ error: "الرقم لم يُرسل بعد" });
       await storage.updateVirtualNumberOrder(order.id, { status: "code_requested" });
@@ -3774,14 +3774,14 @@ export async function registerRoutes(
 
   app.patch("/api/admin/virtual-numbers/countries/:id", requireAdminAuth, async (req, res) => {
     try {
-      const c = await storage.updateVirtualNumberCountry(req.params.id, req.body);
+      const c = await storage.updateVirtualNumberCountry((req.params.id as string), req.body);
       if (!c) return res.status(404).json({ error: "غير موجود" });
       res.json(c);
     } catch { res.status(500).json({ error: "فشل في التحديث" }); }
   });
 
   app.delete("/api/admin/virtual-numbers/countries/:id", requireAdminAuth, async (req, res) => {
-    try { await storage.deleteVirtualNumberCountry(req.params.id); res.json({ ok: true }); }
+    try { await storage.deleteVirtualNumberCountry((req.params.id as string)); res.json({ ok: true }); }
     catch { res.status(500).json({ error: "فشل في الحذف" }); }
   });
 
@@ -3792,7 +3792,7 @@ export async function registerRoutes(
 
   app.patch("/api/admin/virtual-numbers/orders/:id", requireAdminAuth, async (req, res) => {
     try {
-      const order = await storage.updateVirtualNumberOrder(req.params.id, req.body);
+      const order = await storage.updateVirtualNumberOrder((req.params.id as string), req.body);
       if (!order) return res.status(404).json({ error: "غير موجود" });
       // If number is sent, notify customer via inbox
       if (req.body.status === "number_sent" && req.body.virtualNumber && order.customerId) {
@@ -3903,10 +3903,10 @@ export async function registerRoutes(
   app.post("/api/broker/requests/:id/confirm", requireCustomerAuth as any, async (req, res) => {
     try {
       const customer = (req as any).customer;
-      const brokerReq = await storage.getBrokerRequestById(req.params.id);
+      const brokerReq = await storage.getBrokerRequestById((req.params.id as string));
       if (!brokerReq || brokerReq.buyerId !== customer.id) return res.status(404).json({ error: "غير موجود" });
       if (brokerReq.status !== "delivered") return res.status(400).json({ error: "الطلب لم يُسلَّم بعد" });
-      const updated = await storage.updateBrokerRequest(req.params.id, { status: "completed" });
+      const updated = await storage.updateBrokerRequest((req.params.id as string), { status: "completed" });
       // Create trust pulse event
       await storage.createTrustPulseEvent({
         eventType: "broker_completed",
@@ -3979,7 +3979,7 @@ export async function registerRoutes(
 
   app.patch("/api/admin/broker/requests/:id", requireAdminAuth, async (req, res) => {
     try {
-      const brokerReq = await storage.updateBrokerRequest(req.params.id, req.body);
+      const brokerReq = await storage.updateBrokerRequest((req.params.id as string), req.body);
       if (!brokerReq) return res.status(404).json({ error: "غير موجود" });
 
       // Notify buyer when their request is approved
@@ -4037,7 +4037,7 @@ export async function registerRoutes(
 
   app.delete("/api/admin/broker/requests/:id", requireAdminAuth, async (req, res) => {
     try {
-      await storage.deleteBrokerRequest(req.params.id);
+      await storage.deleteBrokerRequest((req.params.id as string));
       res.json({ ok: true });
     } catch { res.status(500).json({ error: "فشل في الحذف" }); }
   });
@@ -4055,7 +4055,7 @@ export async function registerRoutes(
 
   app.patch("/api/admin/broker/offers/:id", requireAdminAuth, async (req, res) => {
     try {
-      const offer = await storage.updateBrokerOffer(req.params.id, req.body);
+      const offer = await storage.updateBrokerOffer((req.params.id as string), req.body);
       if (!offer) return res.status(404).json({ error: "غير موجود" });
 
       // Notify seller when their offer is accepted

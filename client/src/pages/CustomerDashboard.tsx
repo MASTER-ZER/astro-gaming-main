@@ -799,7 +799,7 @@ export default function CustomerDashboard() {
                   style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.25)", color: "#34d399" }}
                   data-testid="text-referral-code"
                 >
-                  {referralData?.referralCode || customer?.referralCode || "—"}
+                  {referralData?.referralCode || (customer as any)?.referralCode || "—"}
                 </div>
                 <Button
                   size="sm"

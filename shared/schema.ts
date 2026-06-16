@@ -409,6 +409,8 @@ export const walletTransactions = pgTable("wallet_transactions", {
   type: text("type").notNull(),
   reason: text("reason").notNull(),
   orderId: varchar("order_id").references(() => orders.id),
+  balanceBefore: integer("balance_before"),
+  balanceAfter: integer("balance_after"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 

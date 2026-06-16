@@ -36,7 +36,7 @@ import {
   type BrokerRequest, type InsertBrokerRequest,
   type BrokerOffer, type InsertBrokerOffer,
   type TrustPulseEvent, type InsertTrustPulseEvent,
-} from "@shared/schema";
+} from "../shared/schema";
 import { db } from "./db";
 import { eq, desc, sql, and, count } from "drizzle-orm";
 import webpush from "web-push";
@@ -455,7 +455,9 @@ export class DatabaseStorage implements IStorage {
   async getAccounts(): Promise<(Account & { game?: Game })[]> {
     const accountsData = await db.select().from(accounts).orderBy(desc(accounts.createdAt));
     const result = await Promise.all(accountsData.map(async (account) => {
-      const [game] = await db.select().from(games).where(eq(games.id, account.gameId));
+      const [game] = account.gameId
+        ? await db.select().from(games).where(eq(games.id, account.gameId))
+        : [undefined];
       return { ...account, game };
     }));
     return result;
@@ -491,7 +493,9 @@ export class DatabaseStorage implements IStorage {
       ? await db.select().from(accountSellRequests).where(eq(accountSellRequests.status, status)).orderBy(desc(accountSellRequests.createdAt))
       : await query;
     return Promise.all(rows.map(async (req) => {
-      const [game] = await db.select().from(games).where(eq(games.id, req.gameId));
+      const [game] = req.gameId
+        ? await db.select().from(games).where(eq(games.id, req.gameId))
+        : [undefined];
       return { ...req, game };
     }));
   }
@@ -1351,7 +1355,7 @@ export class DatabaseStorage implements IStorage {
 
   async seedDefaultGames(): Promise<void> {
     try {
-      const existing = await this.getGames(true);
+      const existing = await this.getGames();
       if (existing.length > 0) return; // already has games, skip
 
       const defaultGames = [

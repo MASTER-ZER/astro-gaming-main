@@ -66,7 +66,7 @@ export default function AdminAccounts() {
   const openEdit = (account: AccountWithGame) => {
     setEditing(account);
     setForm({
-      gameId: account.gameId,
+      gameId: account.gameId || "",
       title: account.title,
       description: account.description,
       price: account.price,
