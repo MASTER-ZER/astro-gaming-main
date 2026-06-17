@@ -71,17 +71,29 @@ function getAdminTokenInfo(token: string): AdminTokenInfo | null {
   return info;
 }
 
-function requireAdminAuth(req: Request, res: Response, next: NextFunction) {
+async function requireAdminAuth(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   const token = authHeader.split(" ")[1];
   if (!isValidToken(token)) {
-    return res.status(401).json({ error: "Unauthorized" });
+    // On serverless (Vercel), try reloading sessions from DB
+    await loadAdminSessions();
+    if (!isValidToken(token)) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
   }
   next();
 }
+
+async function saveTokenAndPersist(token: string, info: AdminTokenInfo) {
+  adminTokens.set(token, info);
+  await persistAdminSessions();
+}
+
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
 const CUSTOMER_SESSION_EXPIRY_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 const otpStore = new Map<string, { code: string; expiresAt: number; attempts: number }>();
@@ -109,14 +121,18 @@ function getAdminTokenInfo(token: string): AdminTokenInfo | null {
   return info;
 }
 
-function requireAdminAuth(req: Request, res: Response, next: NextFunction) {
+async function requireAdminAuth(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   const token = authHeader.split(" ")[1];
   if (!isValidToken(token)) {
-    return res.status(401).json({ error: "Unauthorized" });
+    // On serverless (Vercel), try reloading sessions from DB
+    await loadAdminSessions();
+    if (!isValidToken(token)) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
   }
   next();
 }
@@ -1132,13 +1148,19 @@ export async function registerRoutes(
     }
   });
 
-  app.get("/api/admin/verify", (req, res) => {
+  app.get("/api/admin/verify", async (req, res) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({ error: "No token provided" });
     }
     const token = authHeader.split(" ")[1];
-    const info = getAdminTokenInfo(token);
+    let info = getAdminTokenInfo(token);
+    // On serverless (Vercel), in-memory state may be lost between invocations.
+    // Fall back to the DB-saved sessions so the user stays logged in.
+    if (!info) {
+      await loadAdminSessions();
+      info = getAdminTokenInfo(token);
+    }
     if (info) {
       res.json({ valid: true, role: info.role || "super_admin", permissions: info.permissions || [], name: info.name, email: info.email });
     } else {
