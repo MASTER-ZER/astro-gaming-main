@@ -144,9 +144,14 @@ export async function registerRoutes(
     },
   });
 
-  const uploadsDir = path.resolve("uploads");
-  if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
+  // Vercel serverless only allows writes to /tmp
+  const uploadsDir = path.resolve(process.env.VERCEL ? "/tmp/uploads" : "uploads");
+  try {
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+  } catch {
+    console.warn("Could not create uploads directory at", uploadsDir);
   }
 
   const attachedAssetsDir = path.resolve("attached_assets");

@@ -1,5 +1,4 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { createApp } from "../server/app";
+import { createApp } from "./app";
 
 let appPromise: ReturnType<typeof createApp> | null = null;
 
@@ -10,7 +9,7 @@ async function getApp() {
   return appPromise;
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: any, res: any) {
   const { app } = await getApp();
   return app(req, res);
 }
