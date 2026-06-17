@@ -55,12 +55,33 @@ async function loadAdminSessions() {
   } catch (e) { console.error("Failed to load admin sessions:", e); }
 }
 
-async function saveTokenAndPersist(token: string, info: AdminTokenInfo) {
-  adminTokens.set(token, info);
-  await persistAdminSessions();
+function isValidToken(token: string): boolean {
+  const info = adminTokens.get(token);
+  if (!info) return false;
+  if (Date.now() > info.expiry) {
+    adminTokens.delete(token);
+    return false;
+  }
+  return true;
 }
-const MAX_LOGIN_ATTEMPTS = 5;
-const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
+
+function getAdminTokenInfo(token: string): AdminTokenInfo | null {
+  const info = adminTokens.get(token);
+  if (!info || Date.now() > info.expiry) return null;
+  return info;
+}
+
+function requireAdminAuth(req: Request, res: Response, next: NextFunction) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  const token = authHeader.split(" ")[1];
+  if (!isValidToken(token)) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  next();
+}
 
 const CUSTOMER_SESSION_EXPIRY_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 const otpStore = new Map<string, { code: string; expiresAt: number; attempts: number }>();
