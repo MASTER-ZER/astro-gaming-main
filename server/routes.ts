@@ -105,38 +105,6 @@ function generateToken(): string {
   return crypto.randomBytes(32).toString("hex");
 }
 
-function isValidToken(token: string): boolean {
-  const info = adminTokens.get(token);
-  if (!info) return false;
-  if (Date.now() > info.expiry) {
-    adminTokens.delete(token);
-    return false;
-  }
-  return true;
-}
-
-function getAdminTokenInfo(token: string): AdminTokenInfo | null {
-  const info = adminTokens.get(token);
-  if (!info || Date.now() > info.expiry) return null;
-  return info;
-}
-
-async function requireAdminAuth(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-  const token = authHeader.split(" ")[1];
-  if (!isValidToken(token)) {
-    // On serverless (Vercel), try reloading sessions from DB
-    await loadAdminSessions();
-    if (!isValidToken(token)) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-  }
-  next();
-}
-
 function checkRateLimit(ip: string): { allowed: boolean; remainingTime?: number } {
   const attempt = loginAttempts.get(ip);
   if (!attempt) return { allowed: true };
