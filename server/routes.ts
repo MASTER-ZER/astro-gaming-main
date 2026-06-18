@@ -229,7 +229,7 @@ export async function registerRoutes(
 
   app.post("/api/customer/register", async (req, res) => {
     try {
-      const { username, password, name, phone, countryCode, referralCode: usedReferralCode } = req.body;
+      const { username, password, name, phone, email, countryCode, referralCode: usedReferralCode } = req.body;
       if (!username || !password || !name || !phone) {
         return res.status(400).json({ error: "جميع الحقول مطلوبة" });
       }
@@ -258,12 +258,13 @@ export async function registerRoutes(
       let customer;
       if (existingPhone && !existingPhone.username) {
         customer = await storage.updateCustomer(existingPhone.id, {
-          username, password: hashedPassword, plainPassword: password, name,
+          username, password: hashedPassword, plainPassword: password, name, email: email?.toLowerCase().trim(),
         });
       } else {
         customer = await storage.createCustomer({
           phone, countryCode: countryCode || "+20", name, username,
           password: hashedPassword, plainPassword: password,
+          email: email?.toLowerCase().trim(),
         });
       }
 
@@ -298,14 +299,25 @@ export async function registerRoutes(
 
   app.post("/api/customer/login", async (req, res) => {
     try {
-      const { username, password } = req.body;
-      if (!username || !password) {
-        return res.status(400).json({ error: "اسم المستخدم وكلمة المرور مطلوبين" });
+      const { username, email, password } = req.body;
+      const identifier = email || username;
+      if (!identifier || !password) {
+        return res.status(400).json({ error: "البريد الإلكتروني / اسم المستخدم وكلمة المرور مطلوبين" });
       }
 
-      const customer = await storage.getCustomerByUsername(username);
+      // Try to find customer by email first, then by username
+      let customer = identifier.includes("@")
+        ? await storage.getCustomerByEmail(identifier.toLowerCase().trim())
+        : await storage.getCustomerByUsername(identifier);
+      if (!customer && !identifier.includes("@")) {
+        // Also try email as fallback
+        customer = await storage.getCustomerByEmail(identifier.toLowerCase().trim());
+      }
+      if (!customer) {
+        customer = await storage.getCustomerByUsername(identifier);
+      }
       if (!customer || !customer.password) {
-        return res.status(401).json({ error: "اسم المستخدم أو كلمة المرور غير صحيحة" });
+        return res.status(401).json({ error: "البريد الإلكتروني أو كلمة المرور غير صحيحة" });
       }
 
       const validPassword = await bcrypt.compare(password, customer.password);
